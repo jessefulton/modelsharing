@@ -9,8 +9,6 @@
  */
 
 var express = require('express')
-	, stylus = require('stylus')
-	, nib = require('nib')
 	, sio = require('socket.io')
 	, backbone = require('backbone')
 	, mf = require('./modelfactory.js');
@@ -34,16 +32,9 @@ var models = ClientModelFactory.makeAll();
  * App configuration.
  */
 app.configure(function () {
-	app.use(stylus.middleware({ src: __dirname + '/public', compile: compile }))
 	app.use(express.static(__dirname + '/public'));
 	app.set('views', __dirname);
 	app.set('view engine', 'jade');
-
-	function compile (str, path) {
-		return stylus(str)
-			.set('filename', path)
-			.use(nib());
-	};
 });
 
 /**

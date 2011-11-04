@@ -1,0 +1,3 @@
+An example of using object models and functions interchangeably between client and server using NodeJS and Backbone
+
+Uses approach from Amir Malik (http://amirmalik.net/2010/11/27/how-to-share-backbonejs-models-with-nodejs)
