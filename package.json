@@ -1,0 +1,14 @@
+{
+    "name": "modelsharing"
+  , "description": "example of sharing model objects between client and server"
+  , "version": "0.0.1"
+  , "dependencies": {
+        "backbone": "0.5.3"
+      , "socket.io": "0.8.6"
+		//TODO: remove these since they're basically unnecessary
+      , "express": "2.3.11"
+      , "jade": "0.12.1"
+      , "nib": "0.0.8"
+      , "stylus": "0.13.3"
+    }
+}
