@@ -1,20 +1,16 @@
-
-/**
- * Bootstrap app.
- */
-//require.paths.unshift(__dirname + '/../../lib/');
-
 /**
  * Module dependencies.
  */
-
 var express = require('express')
 	, sio = require('socket.io')
 	, backbone = require('backbone')
 	, mf = require('./modelfactory.js');
 
-var userModel = require('./models/user.js');
 
+/**
+ * User Models.
+ */
+var userModel = require('./models/user.js');
 
 //--These are the user models being sent to the client
 var users = [new userModel.User({"email":"jessefulton@github.com"})
@@ -23,13 +19,14 @@ var users = [new userModel.User({"email":"jessefulton@github.com"})
 
 
 /**
- * App.
+ * Create global objects.
  */
 var app = express.createServer();
 var models = ClientModelFactory.makeAll();
+
 	
 /**
- * App configuration.
+ * App config & routes.
  */
 app.configure(function () {
 	app.use(express.static(__dirname + '/public'));
@@ -37,15 +34,10 @@ app.configure(function () {
 	app.set('view engine', 'jade');
 });
 
-/**
- * App routes.
- */
+
 app.get('/', function (req, res) {
 	res.render('index', { layout: false });
 });
-
-
-
 app.get('/model/:model', function (req, res) {
 	res.writeHead(200, {'Content-Type': 'text/plain'});
 	res.end(ClientModelFactory.models[req.params.model]);
@@ -53,9 +45,8 @@ app.get('/model/:model', function (req, res) {
 
 
 /**
- * App listen.
+ * Start it.
  */
-
 app.listen(3000, function () {
 	var addr = app.address();
 	console.log('	 app listening on http://' + addr.address + ':' + addr.port);
@@ -63,7 +54,7 @@ app.listen(3000, function () {
 
 
 /**
- * Socket.IO server (single process only)
+ * Socket.IO
  */
 var io = sio.listen(app);
 
