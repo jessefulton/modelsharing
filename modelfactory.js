@@ -45,31 +45,31 @@ function ClientModelFactory(modelpath) {
 
 		this.models[name] = '';
 
-		for(var export in module) {
-			if(typeof module[export] != 'function')
+		for(var exp in module) {
+			if(typeof module[exp] != 'function')
 				continue;
 
-			if('__exports__' in module[export]) {
+			if('__exports__' in module[exp]) {
 				// constructor
-				this.models[name] += module[export] + "\n";
+				this.models[name] += module[exp] + "\n";
 
 				// handle inheritance using ghetto @extends comments
-				var match = (''+module[export]).match(EXTENDS_REGEX);
+				var match = (''+module[exp]).match(EXTENDS_REGEX);
 				if(match) {
-					this.models[name] += this.extend(export, match[1]);
+					this.models[name] += this.extend(exp, match[1]);
 				}
 
-				var export_list = module[export]['__exports__'];
+				var export_list = module[exp]['__exports__'];
 				for(var j = 0; j < export_list.length; j++) {
 					var prop = export_list[j];
 
 					if(typeof prop == 'function') { // regular expression
-						for(var p in module[export]) {
-							if(module[export].hasOwnProperty(p) && p.match(prop))
-								this.models[name] += serialize(module[export], export, p);
+						for(var p in module[exp]) {
+							if(module[exp].hasOwnProperty(p) && p.match(prop))
+								this.models[name] += serialize(module[exp], exp, p);
 						}
 					} else if(typeof prop == 'string') { // exact string
-						this.models[name] += serialize(module[export], export, prop);
+						this.models[name] += serialize(module[exp], exp, prop);
 					}
 				}
 			}
