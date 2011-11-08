@@ -59,6 +59,12 @@ app.listen(port, function () {
  */
 var io = sio.listen(app);
 
+//configure to work on heroku - TODO: move this to the config
+io.configure(function () { 
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+});
+
 io.sockets.on('connection', function (socket) {
 	console.log('emitting models');
 	users.forEach(function(element, idx, arr) {
