@@ -47,7 +47,8 @@ app.get('/model/:model', function (req, res) {
 /**
  * Start it.
  */
-app.listen(3000, function () {
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
 	var addr = app.address();
 	console.log('	 app listening on http://' + addr.address + ':' + addr.port);
 });
